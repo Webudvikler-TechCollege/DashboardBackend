@@ -13,6 +13,10 @@ I mappen data finder du SQL filen som skal importeres til den database, du vil b
 
 Dine database credentials skal skrives ind i filen /core/userapp/dbconf.php.
 
+Tabellerne mh_activity og mh_subject indeholder data om aktiviteter på skolen.
+
+### Adgang
+
 CMS siden kaldes fra følgende URL: www.yoursitename.dk/cms/
 
 Login og adgangskode er admin.
