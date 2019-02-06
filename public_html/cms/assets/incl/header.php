@@ -55,6 +55,9 @@ $strJs = isset($strJs) && !empty($strJs) ? $strJs : "jquery.min,bootstrap.min,mo
                                 <li class="dropdown">
                                     <a href="/cms/modules/activities.php">Aktiviteter</a>
                                 </li>
+                                <li class="dropdown">
+                                    <a href="/cms/modules/subject.php">Fag</a>
+                                </li>
                             </ul>
                             <div class="nav navbar-nav navbar-right">
                                 <a href="?action=logout" class="hidden-xs">
