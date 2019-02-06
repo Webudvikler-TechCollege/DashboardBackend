@@ -10,7 +10,7 @@ switch (strtoupper($mode)) {
         sysHeader();
         /* Set array button panel */
         $arrButtonPanel = array();
-        $arrButtonPanel[] = getButton("button", "Genindlæs data", "getUrl('?mode=getdata')");
+        $arrButtonPanel[] = getButton("button", "Opret fag", "getUrl('?mode=edit&iSubjectID=-1')");
         /* Call static panel with title and button options */
         echo textPresenter::presentpanel($strModuleName, $strModuleMode, $arrButtonPanel);
         /* Fetch artists from DB */
