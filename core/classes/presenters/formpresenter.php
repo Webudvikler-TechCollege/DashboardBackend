@@ -165,7 +165,7 @@ class FormPresenter {
                         $this->accHtml .= "</div>\n";
                     break;    
             
-                    CASE crud::INPUT_RADIO:
+                    case crud::INPUT_RADIO:
                         $this->accHtml .= "<div class=\"form-group\">\n";
                         $this->accHtml .= "   <label class=\"col-sm-3 control-label\"></label>\n";
                         $this->accHtml .= "   <div class=\"col-sm-9\">\n";

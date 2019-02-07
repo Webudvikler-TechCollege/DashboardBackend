@@ -9,6 +9,7 @@ class news extends crud {
         parent::__construct($this->dbTable);
         $this->arrColumns["txContent"]["Formtype"] = crud::INPUT_TEXTEDITOR;
 	    $this->arrColumns["daStart"]["Formtype"] = parent::INPUT_DATETIME;
+	    $this->arrColumns["vcImage"]["Formtype"] = parent::INPUT_IMAGEEDITOR;
     }
         
     /**
