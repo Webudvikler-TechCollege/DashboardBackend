@@ -41,4 +41,31 @@ class mh_activity extends crud {
     public function save() {
         return parent::saveItem();
     }
+
+    /**
+     * Metode til at hente uddannelses typer med
+     */
+    public function findTeam($strClass) {
+        $team = "";
+        
+        if(substr($strClass,0,1) === "a") {
+            $team = "eftudd";
+        } else if(substr($strClass,0,3) === "iiw") {
+            $team = "brobyg";
+        } else if(strstr($strClass, "we")) {
+            $team = "webudv";
+        } else if(strstr($strClass, "mg")) {
+            $team = "medgra";
+        } else if(strstr($strClass, "dm")) {
+            $team = "digmed";
+        } else if(strstr($strClass, "gr")) {
+            $team = "gratek";
+        } else if(strstr($strClass, "fiw") || strstr($strClass, "fmiw")) {
+            $team = "gf1";
+        } else {
+            $team = $strClass;
+        }
+
+        return $team;
+    }
 }

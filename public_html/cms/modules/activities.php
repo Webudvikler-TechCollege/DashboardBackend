@@ -22,12 +22,15 @@ switch (strtoupper($mode)) {
             "vcSubject" => $obj->arrColumns["vcSubject"]["Label"],
             "vcClassroom" => $obj->arrColumns["vcClassroom"]["Label"],
             "vcClass" => $obj->arrColumns["vcClass"]["Label"],
+            "vcEdu" => "Uddannelse",
             "daTime" => $obj->arrColumns["daTime"]["Label"]
         );
 
         /* Format rows with option icons */
         foreach ($rows as $key => $row) {
+
             $rows[$key]["opts"] = getIcon("?mode=details&iActivityID=" . $row["iActivityID"], "eye");
+            $rows[$key]["vcEdu"] = $obj->findTeam($rows[$key]["vcClass"]);
         }
 
         /* Call list presenter object  */
