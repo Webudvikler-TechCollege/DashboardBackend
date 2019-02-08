@@ -14,14 +14,14 @@ switch (strtoupper($mode)) {
         /* Call static panel with title and button options */
         echo textPresenter::presentpanel($strModuleName, $strModuleMode, $arrButtonPanel);
         /* Fetch artists from DB */
-        $nl = new news();
-        $rows = $nl->getall();
+        $obj = new news();
+        $rows = $obj->getall();
 
         $arrLabels = array(
             "opts" => "Options",
-            "vcTitle" => $nl->arrColumns["vcTitle"]["Label"],
-            "daStart" => $nl->arrColumns["daStart"]["Label"],
-            "daCreated" => $nl->arrColumns["daCreated"]["Label"]
+            "vcTitle" => $obj->arrColumns["vcTitle"]["Label"],
+            "daStart" => $obj->arrColumns["daStart"]["Label"],
+            "daCreated" => $obj->arrColumns["daCreated"]["Label"]
         );
 
         /* Format rows with option icons */
@@ -51,14 +51,14 @@ switch (strtoupper($mode)) {
         /* Call static panel with title and button options */
         echo textPresenter::presentpanel($strModuleName, $strModuleMode, $arrButtonPanel);
 
-        $nl = new news();
-        $nl->getitem($iNewsID);
+        $obj = new news();
+        $obj->getitem($iNewsID);
 
-        $nl->arrValues["daStart"] = time2local($nl->arrValues["daStart"]);
-        $nl->arrValues["daCreated"] = time2local($nl->arrValues["daCreated"]);
-        $nl->arrValues["iIsActive"] = boolToIcon($nl->arrValues["iIsActive"]);
+        $obj->arrValues["daStart"] = time2local($obj->arrValues["daStart"]);
+        $obj->arrValues["daCreated"] = time2local($obj->arrValues["daCreated"]);
+        $obj->arrValues["iIsActive"] = boolToIcon($obj->arrValues["iIsActive"]);
 
-        $p = new listPresenter($nl->arrColumns, $nl->arrValues);
+        $p = new listPresenter($obj->arrColumns, $obj->arrValues);
         echo $p->presentdetails();
 
 
@@ -68,9 +68,9 @@ switch (strtoupper($mode)) {
     case "EDIT";
         $iNewsID = filter_input(INPUT_GET, "iNewsID", FILTER_SANITIZE_NUMBER_INT);
 
-        $nl = new news();
+        $obj = new news();
         if ($iNewsID > 0) {
-            $nl->getitem($iNewsID);
+            $obj->getitem($iNewsID);
         }
 
         $strModuleMode = ($iNewsID > 0) ? "Rediger" : "Opret nyt nyhed";
@@ -86,8 +86,13 @@ switch (strtoupper($mode)) {
         /* Call static panel with title and button options */
         echo textPresenter::presentpanel($strModuleName, $strModuleMode, $arrButtonPanel);
 
+        $m = new medie();
+        $arrMedieOpts = $m->getAll();
+        array_unshift($arrMedieOpts, array("","Vælg medie"));
+        $obj->arrValues["iMedieID"] = SelectBox('iMedieID',$arrMedieOpts,$obj->arrValues["iMedieID"]);
+
         /* Call From Presenter */
-        $form = new formPresenter($nl->arrColumns, $nl->arrValues);
+        $form = new formPresenter($obj->arrColumns, $obj->arrValues);
         echo $form->presentform();
 
         sysFooter();

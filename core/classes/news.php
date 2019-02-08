@@ -7,13 +7,12 @@ class news extends crud {
 
     public function __construct() {
         parent::__construct($this->dbTable);
-        $this->arrColumns["txContent"]["Formtype"] = crud::INPUT_TEXTEDITOR;
+        $this->arrColumns["txContent"]["Formtype"] = parent::INPUT_TEXTEDITOR;
 	    $this->arrColumns["daStart"]["Formtype"] = parent::INPUT_DATETIME;
-	    $this->arrColumns["vcImage"]["Formtype"] = parent::INPUT_IMAGEEDITOR;
     }
         
     /**
-     * List newsletters
+     * List news
      * @return type
      */
     public function getAll() { 
@@ -23,7 +22,21 @@ class news extends crud {
                         "ORDER BY daCreated";
         return $this->db->_fetch_array($strSelect);
     } 
+
+    /**
+     * List news limited
+     * @return type
+     */
+    public function getLimited($limit = 3) { 
+        $strSelect = "SELECT * " . 
+                        "FROM news " .
+                        "WHERE iDeleted = 0 " . 
+                        "ORDER BY daCreated " . 
+                        "LIMIT " . $limit;
+        return $this->db->_fetch_array($strSelect);
+    } 
     
+
     /**
      * Select newsletter by id
      * @param int $iItemID
