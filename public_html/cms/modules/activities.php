@@ -29,7 +29,8 @@ switch (strtoupper($mode)) {
         /* Format rows with option icons */
         foreach ($rows as $key => $row) {
 
-            $rows[$key]["opts"] = getIcon("?mode=details&iActivityID=" . $row["iActivityID"], "eye");
+            $rows[$key]["opts"] = getIcon("?mode=details&iActivityID=" . $row["iActivityID"], "eye") . 
+                                    getIcon("?mode=edit&iActivityID=" . $row["iActivityID"], "pencil");
             $rows[$key]["vcEdu"] = $obj->findTeam($rows[$key]["vcClass"]);
         }
 
@@ -63,7 +64,52 @@ switch (strtoupper($mode)) {
         sysFooter();
         break;
 
-	case "GETDATA":
+    case "EDIT";
+        $iActivityID = filter_input(INPUT_GET, "iActivityID", FILTER_SANITIZE_NUMBER_INT);
+
+        $obj = new mh_activity();
+        if ($iActivityID > 0) {
+            $obj->getitem($iActivityID);
+        }
+
+        $strModuleMode = ($iActivityID > 0) ? "Rediger" : "Opret nyt nyhed";
+        sysHeader();
+
+        /* Set array button panel */
+        $arrButtonPanel = array();
+
+        if ($iActivityID > 0) {
+            $arrButtonPanel[] = getButton("button", "Detaljer", "getUrl('?mode=details&iActivityID=" . $iActivityID . "')");
+        }
+        $arrButtonPanel[] = getButton("button", "Oversigt", "getUrl('?mode=list')");
+        /* Call static panel with title and button options */
+        echo textPresenter::presentpanel($strModuleName, $strModuleMode, $arrButtonPanel);
+
+        //$obj->arrValues["daTime"] = $obj->arrValues["daTime"];
+
+        /* Call From Presenter */
+        $form = new formPresenter($obj->arrColumns, $obj->arrValues);
+        echo $form->presentform();
+
+        sysFooter();
+        break;
+
+    case "SAVE";
+        $news = new news();
+	    $news->arrColumns["daStart"]["Value"] = makeStamp("daStart");
+        $iActivityID = $news->save();
+        header("Location: ?mode=details&iActivityID=" . $iActivityID);
+        break;
+
+    case "DELETE":
+        $obj = new news();
+        $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+        $obj->delete($id);
+        header("Location: ?mode=list");
+        break;
+
+    
+    case "GETDATA":
 		$data = new mh_getdata();
 		$data->run_update();
 		header("Location: ?mode=list");

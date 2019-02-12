@@ -7,6 +7,7 @@ class mh_activity extends crud {
 
     public function __construct() {
         parent::__construct($this->dbTable);
+        $this->arrColumns["daTime"]["Formtype"] = parent::INPUT_DATETIME;
     }
         
     /**
