@@ -1,3 +1,6 @@
+/**
+ * Fetcher data til aktiviteter
+ */
 function getdata() {
     fetch("http://dashboard.local/assets/scripts/getactivities.php")
         .then(response => {
