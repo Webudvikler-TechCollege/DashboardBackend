@@ -13,6 +13,7 @@ switch (strtoupper($mode)) {
         $arrButtonPanel[] = getButton("button", "Genindlæs data", "getUrl('?mode=getdata')");
         /* Call static panel with title and button options */
         echo textPresenter::presentpanel($strModuleName, $strModuleMode, $arrButtonPanel);
+        
         /* Fetch artists from DB */
         $obj = new mh_activity();
         $rows = $obj->getall();
