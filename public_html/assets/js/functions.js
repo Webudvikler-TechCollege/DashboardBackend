@@ -7,8 +7,10 @@ function getdata() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
+            //Looper data array
+            for(var item of data) {
+                console.log(item.vcSubject);
+            }
         });
     }
-
-setInterval(getdata, 100);
+setInterval(getdata, 2000);
