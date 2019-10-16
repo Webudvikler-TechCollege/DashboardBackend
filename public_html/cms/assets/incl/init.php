@@ -1,8 +1,10 @@
 <?php
+ini_set("display_errors", TRUE);
 /* Global Tools */
 date_default_timezone_set('Europe/Copenhagen');
 define("DOCROOT", filter_input(INPUT_SERVER, "DOCUMENT_ROOT", FILTER_SANITIZE_STRING));
 define("COREPATH", substr(DOCROOT, 0, strrpos(DOCROOT, DIRECTORY_SEPARATOR)) . DIRECTORY_SEPARATOR . "core" . DIRECTORY_SEPARATOR);
+
 
 require_once COREPATH . 'constants.php';
 require_once COREPATH . 'functions.php';
